@@ -9,7 +9,6 @@ import sys, pygame
 import numpy as np
 from pygame.locals import *
 import pygame.freetype
-import random
 
 w = 600
 h = 600
