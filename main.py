@@ -48,12 +48,28 @@ def end_game(grid):
     else:
         return end_game(grid)
 
+def win_game(grid):
+    
+    GAME_FONT_BIG.render_to(screen, (110, 150), 'You win!!!', BLUE)
+    GAME_FONT_BIG.render_to(screen, (18, 380), 'Continue? (y / n)', BLUE)
+    pygame.display.update()
+    
+    pygame.event.clear()
+    event = pygame.event.wait()
+    if event.type == KEYDOWN and event.key == K_y:
+        return grid
+    elif event.type == KEYDOWN and event.key == K_n:
+        sys.exit()
+    else:
+        return end_game(grid)
 
 def make_new_rect(grid):
     pos = (np.random.randint(0, 4),
            np.random.randint(0, 4))
     if np.count_nonzero(grid) == 16:
         return end_game(grid)
+    if sum(grid[grid == 2048]) == 2048:
+        return win_game(grid)
     elif grid[pos] == 0:
         grid[pos] = np.random.choice([2, 4], p = [.8, .2])
         return grid
